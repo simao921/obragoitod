@@ -36,8 +36,9 @@ export function Projetos() {
   return (
     <>
       <Seo
-        title="Projetos — Obragoito"
-        description="Portefólio de obras da Obragoito: espaço público, infraestruturas, urbanismo, reabilitação e empreendimentos."
+        path="/projetos"
+        title="Projetos e obras realizadas — Obragoito"
+        description="Portefólio de obras da Obragoito: espaço público, infraestruturas, urbanismo, reabilitação e empreendimentos em Lisboa e em todo o país."
       />
 
       <header className="page-hero">

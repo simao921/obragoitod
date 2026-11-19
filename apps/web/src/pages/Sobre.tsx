@@ -22,7 +22,8 @@ export function Sobre() {
   return (
     <>
       <Seo
-        title="Sobre a Obragoito — desde 1991"
+        path="/sobre"
+        title="Sobre a Obragoito — construção civil desde 1991"
         description="A Obragoito é uma empresa portuguesa de construção civil e obras públicas criada em 1991, com experiência em infraestruturas, urbanismo, reabilitação e empreendimentos."
       />
 

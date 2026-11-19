@@ -7,8 +7,9 @@ export function Servicos() {
   return (
     <>
       <Seo
-        title="Serviços — Obragoito"
-        description="Obras públicas, infraestruturas, urbanismo, reabilitação e empreendimentos. As áreas de atuação da Obragoito na construção civil."
+        path="/servicos"
+        title="Serviços de construção civil e obras públicas — Obragoito"
+        description="Obras públicas, infraestruturas, urbanismo, reabilitação e empreendimentos. As áreas de atuação da Obragoito, do levantamento à entrega da obra."
       />
 
       <header className="page-hero">

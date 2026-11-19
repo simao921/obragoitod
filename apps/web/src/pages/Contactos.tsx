@@ -10,8 +10,9 @@ export function Contactos() {
   return (
     <>
       <Seo
+        path="/contactos"
         title="Contactos e pedidos de orçamento — Obragoito"
-        description="Contacte a Obragoito: telefone, email e formulário de pedido de orçamento para obras, remodelações e obras públicas."
+        description="Contacte a Obragoito: telefone, email e formulário de pedido de orçamento para obras, remodelações e obras públicas em Lisboa."
       />
 
       <header className="page-hero">

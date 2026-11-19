@@ -52,19 +52,14 @@ export function Home() {
   return (
     <>
       <Seo
-        title="Obragoito — Construção, remodelação e obras públicas"
+        path="/"
+        title="Obragoito — Construção civil e obras públicas em Lisboa"
         description="Construímos o que permanece. Obras públicas, infraestruturas, urbanismo, reabilitação e empreendimentos em Portugal, desde 1991."
       />
 
       <section className="hero">
         <div className="hero__media" aria-hidden="true">
-          <img
-            ref={parallaxRef}
-            src="/media/projects/saldanha.jpg"
-            alt=""
-            fetchPriority="high"
-            decoding="async"
-          />
+          <img ref={parallaxRef} src="/media/projects/saldanha.jpg" alt="" decoding="async" />
         </div>
         <div className="hero__veil" aria-hidden="true" />
 
@@ -111,6 +106,10 @@ export function Home() {
             <span>São João das Lampas · Lisboa</span>
           </div>
         </div>
+
+        <span className="hero__rail" aria-hidden="true">
+          Obragoito · Construções e Obras Públicas
+        </span>
       </section>
 
       <section className="section" aria-labelledby="quem-somos">
@@ -177,20 +176,20 @@ export function Home() {
           <div className="services">
             {SERVICES.map((service, index) => (
               <Reveal key={service.slug} delay={index * 60}>
-                <Link to={`/servicos#${service.slug}`} className="service" style={{ display: "grid" }}>
+                <Link to={`/servicos#${service.slug}`} className="service">
                   <span className="service__index">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="service__main">
+                  <div className="service__main">
                     <h3 className="service__title">{service.title}</h3>
-                    <span className="service__desc">{service.description}</span>
-                  </span>
-                  <span className="service__meta">
-                    <span>{service.material}</span>
-                    <span className="service__link">
-                      <span>Ver área</span>
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </span>
-                  <span className="service__media" aria-hidden="true">
+                    <p className="service__desc">{service.description}</p>
+                    <p className="service__meta">
+                      <span>{service.material}</span>
+                      <span className="service__link">
+                        <span>Ver área</span>
+                        <span aria-hidden="true">→</span>
+                      </span>
+                    </p>
+                  </div>
+                  <span className="service__thumb" aria-hidden="true">
                     <img src={service.image} alt="" loading="lazy" decoding="async" />
                   </span>
                 </Link>
@@ -246,15 +245,6 @@ export function Home() {
             </div>
           ) : null}
 
-          {state === "error" ? (
-            <div className="notice-bar" role="status">
-              <span>Não foi possível carregar o portfólio neste momento.</span>
-              <Link to="/contactos" className="link-underline">
-                Falar connosco
-              </Link>
-            </div>
-          ) : null}
-
           {featured.length > 0 ? (
             <div className="projects-grid projects-grid--masonry">
               {featured.map((project, index) => (
@@ -303,7 +293,7 @@ export function Home() {
         <div className="container cta__inner">
           <Reveal>
             <div>
-              <p className="eyebrow" id="cta" style={{ color: "rgba(251,250,247,.6)" }}>
+              <p className="eyebrow" id="cta" style={{ color: "rgba(251,250,247,.72)" }}>
                 Novo projeto
               </p>
               <h2 className="cta__title" style={{ marginTop: "var(--space-4)" }}>

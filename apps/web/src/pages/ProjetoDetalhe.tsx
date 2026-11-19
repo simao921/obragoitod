@@ -69,9 +69,21 @@ export function ProjetoDetalhe() {
   return (
     <>
       <Seo
-        title={`${project.name} — Obragoito`}
+        path={`/projetos/${project.slug}`}
+        type="article"
+        title={`${project.name} — Projeto Obragoito`}
         description={project.summary ?? `Projeto ${project.name} executado pela Obragoito.`}
         image={project.coverImage ?? undefined}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: project.name,
+          description: project.summary ?? undefined,
+          image: project.coverImage ?? undefined,
+          creator: { "@type": "Organization", name: "Obragoito", url: "https://obragoito.pt/" },
+          locationCreated: project.location ?? undefined,
+          dateCreated: project.year ? String(project.year) : undefined,
+        }}
       />
 
       {project.coverImage ? (
@@ -79,7 +91,7 @@ export function ProjetoDetalhe() {
           <img
             src={project.coverImage}
             alt={project.coverImageAlt ?? `Obra ${project.name} executada pela Obragoito`}
-            fetchPriority="high"
+            decoding="async"
           />
         </div>
       ) : (

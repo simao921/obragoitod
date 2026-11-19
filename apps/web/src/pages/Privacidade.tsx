@@ -6,6 +6,7 @@ export function Privacidade() {
   return (
     <>
       <Seo
+        path="/privacidade"
         title="Política de privacidade — Obragoito"
         description="Como a Obragoito recolhe, utiliza e conserva os dados enviados através do formulário de pedido de orçamento."
         noIndex={false}
