@@ -6,7 +6,21 @@ import { slugify } from "@obragoito/core";
  * Não inclui clientes, trabalhadores nem obras fictícias.
  * Campos desconhecidos ficam a null para serem preenchidos na gestão.
  */
-const REAL_PROJECTS = [
+type SeedImage = { path: string; alt: string };
+
+type SeedProject = {
+  name: string;
+  category: "obras-publicas" | "infraestruturas" | "urbanismo" | "reabilitacao" | "empreendimentos";
+  location: string | null;
+  summary: string;
+  description: string;
+  cover: string;
+  alt: string;
+  order: number;
+  gallery?: SeedImage[];
+};
+
+const REAL_PROJECTS: SeedProject[] = [
   {
     name: "Praça Duque de Saldanha",
     category: "urbanismo",
@@ -73,7 +87,53 @@ const REAL_PROJECTS = [
     alt: "Rotunda de Benfica, em Lisboa, com pavimento e ilha central",
     order: 6,
   },
-] as const;
+  {
+    name: "Herdade da Lançada",
+    category: "empreendimentos",
+    location: "Montijo",
+    summary:
+      "Urbanização com 108 lotes para 108 moradias unifamiliares T3+1, no Montijo — em pré-lançamento, com lotes desde 84.000 €.",
+    description:
+      "Pré-lançamento de uma urbanização composta por 108 lotes para construção, destinados a 108 moradias unifamiliares. O loteamento é totalmente plano, com passeios largos, e a ligação à natureza está presente tanto nos vários jardins como na proximidade de espaços verdes naturais nas imediações.\nTodos os lotes são vendidos com projeto de arquitetura e especialidades aprovados, incluindo projeto de execução, com duas opções de acabamentos para a construção de uma moradia T3+1 com três pisos acima do solo — o último piso sugerido para escritório e com um terraço amplo. As varandas, os terraços, os canteiros e as coberturas ajardinadas reforçam a ligação ao espaço exterior.\nLocalização junto à rotunda dos Sarilhos Grandes, com ligação direta à A33, a menos de cinco minutos de todo o tipo de serviços e comércio, do centro do Montijo e da Ponte Vasco da Gama. Projeto desenvolvido e executado pela Obragoito com a assinatura do gabinete Plano Humano Arquitectos.",
+    cover: "/media/projects/herdade-fachada.jpg",
+    alt: "Fachada de uma das moradias T3+1 da Herdade da Lançada, no Montijo",
+    order: 7,
+    gallery: [
+      {
+        path: "/media/projects/herdade-fachada.jpg",
+        alt: "Fachada de uma das moradias T3+1 da Herdade da Lançada, no Montijo",
+      },
+      {
+        path: "/media/projects/herdade-fachada-2.jpg",
+        alt: "Fachada e jardim de uma moradia da Herdade da Lançada",
+      },
+      {
+        path: "/media/projects/herdade-jardim.jpg",
+        alt: "Jardim de uma das moradias da Herdade da Lançada",
+      },
+      {
+        path: "/media/projects/herdade-jardim-2.jpg",
+        alt: "Zona exterior ajardinada de uma moradia da Herdade da Lançada",
+      },
+      {
+        path: "/media/projects/herdade-jardim-3.jpg",
+        alt: "Percursos pedonais e jardins da urbanização Herdade da Lançada",
+      },
+      {
+        path: "/media/projects/herdade-cozinha.jpg",
+        alt: "Cozinha de uma moradia da Herdade da Lançada",
+      },
+      {
+        path: "/media/projects/herdade-cozinha-2.jpg",
+        alt: "Cozinha e zona de refeições de uma moradia da Herdade da Lançada",
+      },
+      {
+        path: "/media/projects/herdade-sala.jpg",
+        alt: "Sala de uma moradia da Herdade da Lançada",
+      },
+    ],
+  },
+];
 
 async function main() {
   for (const project of REAL_PROJECTS) {
@@ -100,11 +160,14 @@ async function main() {
         project.order,
       ],
     );
-    await query(
-      `insert into public.project_images (project_id, storage_path, alt, sort_order)
-       values ($1, $2, $3, 0)`,
-      [inserted.rows[0].id, project.cover, project.alt],
-    );
+    const gallery = project.gallery ?? [{ path: project.cover, alt: project.alt }];
+    for (const [index, image] of gallery.entries()) {
+      await query(
+        `insert into public.project_images (project_id, storage_path, alt, sort_order)
+         values ($1, $2, $3, $4)`,
+        [inserted.rows[0].id, image.path, image.alt, index],
+      );
+    }
     console.log(`[seed] ${slug} — criado`);
   }
 

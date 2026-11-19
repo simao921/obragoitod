@@ -42,10 +42,15 @@ deliberadamente **não** utilizadas: não são obras da empresa.
 
 ## Obras publicadas
 
-As seis obras em `apps/api/src/seed.ts` correspondem ao portefólio apresentado em
+As seis obras iniciais em `apps/api/src/seed.ts` correspondem ao portefólio apresentado em
 `https://obragoito.pt/projetos/`. Só os nomes, a área e a fotografia estão confirmados. Descrições,
 localizações, anos e clientes que não constam do site original ficam vazios e são editáveis no
 portal de gestão.
+
+A Herdade da Lançada (`https://obragoito.pt/herdade-da-lancada/`) é um empreendimento no Montijo,
+em pré-lançamento, com 108 lotes. Os textos e as oito fotografias vêm dessa página da Obragoito;
+as imagens são renders de divulgação do empreendimento e devem ser substituídas por originais
+quando existirem.
 
 ## Por confirmar antes do lançamento
 
