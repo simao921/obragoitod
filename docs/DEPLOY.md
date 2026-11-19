@@ -1,5 +1,8 @@
 # Publicar na Vercel e ligar ao Supabase
 
+> Guia passo a passo (Root Directory, um projeto por aplicação e ficheiros
+> `.env` prontos a colar): [`docs/vercel/README.md`](vercel/README.md).
+
 O repositório é um monorepo com cinco aplicações e uma API:
 
 | Aplicação | Pasta | Domínio sugerido | Porta em dev |
