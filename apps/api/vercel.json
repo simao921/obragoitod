@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd ../.. && npm ci",
+  "functions": {
+    "api/[...path].ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "crons": [{ "path": "/api/cron/daily", "schedule": "5 0 * * *" }]
+}
