@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { COMPANY, COMPANY_ADDRESS_LINE, SERVICES } from "@obragoito/core";
+import { openCookiePreferences } from "./CookieConsent";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -90,6 +91,9 @@ export function SiteFooter() {
           </span>
           <span>{COMPANY_ADDRESS_LINE}</span>
           <Link to="/privacidade">Privacidade</Link>
+          <button type="button" className="site-footer__cookies" onClick={openCookiePreferences}>
+            Cookies
+          </button>
         </div>
       </div>
     </footer>

@@ -5,36 +5,14 @@ import { Alert, Button } from "./primitives";
 import { TextField } from "./fields";
 import { Dialog } from "./dialog";
 
-/** Código de acesso enviado por email (gestão e portal dev). */
-export type OtpChallenge = {
-  email: string;
-  expiresAt: string;
-  delivery: "email" | "development";
-  devCode: string | null;
-};
-
-type OtpResponse = {
-  otpRequired: true;
-  email: string;
-  expiresAt: string;
-  delivery: "email" | "development";
-  devCode?: string;
-};
-
-type LoginResponse =
-  | OtpResponse
-  | { otpRequired?: false; user: SessionUser; mustChangePassword: boolean };
+type LoginResponse = { user: SessionUser; mustChangePassword: boolean };
 
 type AuthContextValue = {
   user: SessionUser | null;
   loading: boolean;
   mustChangePassword: boolean;
   error: string | null;
-  otp: OtpChallenge | null;
   login: (email: string, password: string) => Promise<boolean>;
-  verifyOtp: (code: string) => Promise<boolean>;
-  resendOtp: () => Promise<void>;
-  cancelOtp: () => void;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
 };
@@ -46,8 +24,6 @@ export function AuthProvider({ portal, children }: { portal: Role | "dev"; child
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mustChangePassword, setMustChangePassword] = useState(false);
-  const [otp, setOtp] = useState<OtpChallenge | null>(null);
-  const [pendingEmail, setPendingEmail] = useState("");
 
   const refresh = useCallback(async () => {
     try {
@@ -70,16 +46,6 @@ export function AuthProvider({ portal, children }: { portal: Role | "dev"; child
       setError(null);
       try {
         const data = await api.post<LoginResponse>("/auth/login", { email, password, portal });
-        if (data.otpRequired) {
-          setPendingEmail(email);
-          setOtp({
-            email: data.email,
-            expiresAt: data.expiresAt,
-            delivery: data.delivery,
-            devCode: data.devCode ?? null,
-          });
-          return false;
-        }
         setUser(data.user);
         setMustChangePassword(Boolean(data.mustChangePassword));
         return true;
@@ -95,64 +61,13 @@ export function AuthProvider({ portal, children }: { portal: Role | "dev"; child
     [portal],
   );
 
-  const verifyOtp = useCallback(
-    async (code: string) => {
-      setError(null);
-      try {
-        const data = await api.post<{ user: SessionUser; mustChangePassword: boolean }>("/auth/login/verify", {
-          email: pendingEmail,
-          code,
-          portal,
-        });
-        setUser(data.user);
-        setMustChangePassword(Boolean(data.mustChangePassword));
-        setOtp(null);
-        setPendingEmail("");
-        return true;
-      } catch (verifyError) {
-        setError(
-          isApiError(verifyError) ? verifyError.message : "Não foi possível validar o código. Tente novamente.",
-        );
-        return false;
-      }
-    },
-    [pendingEmail, portal],
-  );
-
-  const resendOtp = useCallback(async () => {
-    setError(null);
-    try {
-      const data = await api.post<OtpResponse>("/auth/login/otp", { email: pendingEmail, portal });
-      setOtp({
-        email: data.email,
-        expiresAt: data.expiresAt,
-        delivery: data.delivery,
-        devCode: data.devCode ?? null,
-      });
-    } catch (resendError) {
-      setError(
-        isApiError(resendError) ? resendError.message : "Não foi possível reenviar o código. Tente novamente.",
-      );
-    }
-  }, [pendingEmail, portal]);
-
-  const cancelOtp = useCallback(() => {
-    setOtp(null);
-    setPendingEmail("");
-    setError(null);
-  }, []);
-
   const logout = useCallback(async () => {
     await api.post("/auth/logout").catch(() => undefined);
     setUser(null);
-    setOtp(null);
-    setPendingEmail("");
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, loading, mustChangePassword, error, otp, login, verifyOtp, resendOtp, cancelOtp, logout, refresh }}
-    >
+    <AuthContext.Provider value={{ user, loading, mustChangePassword, error, login, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );
@@ -185,19 +100,10 @@ export function PortalLogin({
   asideText,
   footer,
 }: PortalLoginProps) {
-  const { login, verifyOtp, resendOtp, cancelOtp, otp, error } = useAuth();
+  const { login, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [resending, setResending] = useState(false);
-  const [cooldown, setCooldown] = useState(0);
-
-  useEffect(() => {
-    if (cooldown <= 0) return;
-    const timer = window.setTimeout(() => setCooldown((value) => value - 1), 1000);
-    return () => window.clearTimeout(timer);
-  }, [cooldown]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -205,73 +111,6 @@ export function PortalLogin({
     const signedIn = await login(email.trim(), password);
     if (signedIn) setPassword("");
     setSubmitting(false);
-  }
-
-  async function onVerify(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitting(true);
-    const signedIn = await verifyOtp(code.trim());
-    if (signedIn) setCode("");
-    setSubmitting(false);
-  }
-
-  async function onResend() {
-    setResending(true);
-    await resendOtp();
-    setResending(false);
-    setCooldown(45);
-  }
-
-  if (otp) {
-    return (
-      <AuthLayout
-        brandSub={brandSub}
-        image={asideImage}
-        imageAlt={asideAlt}
-        asideTitle={asideTitle}
-        asideText={asideText}
-        title="Confirme o acesso"
-        subtitle={`Enviámos um código de 6 dígitos para ${otp.email}. O código é válido durante 10 minutos.`}
-        footer={footer}
-      >
-        <form onSubmit={onVerify} noValidate style={{ display: "grid", gap: "var(--space-5)" }}>
-          {error ? <Alert tone="error">{error}</Alert> : null}
-          {otp.delivery === "development" && otp.devCode ? (
-            <Alert tone="info">
-              Envio de email não configurado. Código de teste: <strong>{otp.devCode}</strong>
-            </Alert>
-          ) : null}
-          <TextField
-            label="Código de acesso"
-            inputMode="numeric"
-            name="code"
-            autoComplete="one-time-code"
-            maxLength={6}
-            value={code}
-            onChange={(event) => setCode(event.target.value.replace(/\D/g, ""))}
-            hint="Introduza os 6 dígitos recebidos por email."
-            required
-          />
-          <Button type="submit" variant="solid" block disabled={submitting || code.length !== 6} arrow>
-            {submitting ? "A validar…" : "Validar código"}
-          </Button>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: "var(--space-3)" }}>
-            <Button type="button" variant="quiet" size="sm" onClick={cancelOtp}>
-              Voltar
-            </Button>
-            <Button
-              type="button"
-              variant="quiet"
-              size="sm"
-              onClick={onResend}
-              disabled={resending || cooldown > 0}
-            >
-              {cooldown > 0 ? `Reenviar em ${cooldown}s` : resending ? "A reenviar…" : "Reenviar código"}
-            </Button>
-          </div>
-        </form>
-      </AuthLayout>
-    );
   }
 
   return (

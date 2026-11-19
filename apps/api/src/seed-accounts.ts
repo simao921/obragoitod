@@ -38,6 +38,14 @@ const ACCOUNTS = [
 ] as const;
 
 async function main() {
+  // Em produção nunca se usam as palavras-passe de exemplo.
+  const override = process.env.SEED_ACCOUNTS_PASSWORD;
+  if (process.env.NODE_ENV === "production" && !override) {
+    console.error("[seed-accounts] defina SEED_ACCOUNTS_PASSWORD para criar contas em produção.");
+    await pool.end();
+    process.exit(1);
+  }
+
   for (const account of ACCOUNTS) {
     // Nunca repõe uma conta existente: uma palavra-passe nova apaga a do utilizador.
     const inserted = await query<{ id: string }>(
@@ -45,7 +53,7 @@ async function main() {
        values ($1, $2, 'admin', 'active', $3, true, $4)
        on conflict (lower(email)) do nothing
        returning id`,
-      [account.email.toLowerCase(), account.name, hashPassword(account.password), account.developer],
+      [account.email.toLowerCase(), account.name, hashPassword(override ?? account.password), account.developer],
     );
     console.log(
       `[seed-accounts] ${account.email} ${inserted.rows.length > 0 ? "criado" : "já existia"}${

@@ -4,10 +4,10 @@ Cinco aplicações publicáveis em separado, todas a falar com a mesma API:
 
 | Aplicação | Build | Diretório de saída | Domínio sugerido |
 | --- | --- | --- | --- |
-| Site público | `npm run build --workspace @obragoito/web` | `apps/web/dist` | `obragoito.pt` |
-| Gestão | `npm run build --workspace @obragoito/admin` | `apps/admin/dist` | `gestao.obragoito.pt` |
-| Clientes | `npm run build --workspace @obragoito/client` | `apps/client/dist` | `clientes.obragoito.pt` |
-| Equipa | `npm run build --workspace @obragoito/worker` | `apps/worker/dist` | `equipa.obragoito.pt` |
+| Site público | `npm run build --workspace @obragoito/web` | `apps/web/dist` | `obragoito.vercel.app` |
+| Gestão | `npm run build --workspace @obragoito/admin` | `apps/admin/dist` | `gestao-obragoito.vercel.app` |
+| Clientes | `npm run build --workspace @obragoito/client` | `apps/client/dist` | `clients-obragoito.vercel.app` |
+| Equipa | `npm run build --workspace @obragoito/worker` | `apps/worker/dist` | `workers-obragoito.vercel.app` |
 | API | `npm run build --workspace @obragoito/api` (opcional) | — | `api.obragoito.pt` |
 
 ## Princípio: um só domínio por aplicação

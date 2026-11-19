@@ -117,22 +117,6 @@ describe("permissões e isolamento entre perfis", { skip: !enabled ? "DATABASE_U
       body: JSON.stringify({ email: emails[key], password, portal }),
     });
     if (response.ok) {
-      const body = (await response.json().catch(() => null)) as
-        | { otpRequired?: boolean; devCode?: string }
-        | null;
-
-      // A gestão exige um código de acesso; fora de produção a API devolve-o para o teste.
-      if (body?.otpRequired) {
-        const verified = await fetch(`${base}/api/auth/login/verify`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: emails[key], code: body.devCode, portal }),
-        });
-        if (verified.ok) {
-          cookies[key] = verified.headers.getSetCookie().map((value) => value.split(";")[0]).join("; ");
-        }
-        return verified;
-      }
       cookies[key] = response.headers.getSetCookie().map((value) => value.split(";")[0]).join("; ");
     }
     return response;

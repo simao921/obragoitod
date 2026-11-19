@@ -4,12 +4,12 @@ O repositório é um monorepo com cinco aplicações e uma API:
 
 | Aplicação | Pasta | Domínio sugerido | Porta em dev |
 | --- | --- | --- | --- |
-| Site público | `apps/web` | `obragoito.pt` | 3000 |
-| Gestão | `apps/admin` | `gestao.obragoito.pt` | 3001 |
-| Portal de cliente | `apps/client` | `clientes.obragoito.pt` | 3002 |
-| Portal da equipa | `apps/worker` | `equipa.obragoito.pt` | 3003 |
-| Portal de desenvolvimento | `apps/dev` | `dev.obragoito.pt` | 3004 |
-| API | `apps/api` | `api.obragoito.pt` | 4000 |
+| Site público | `apps/web` | `obragoito.vercel.app` | 3000 |
+| Gestão | `apps/admin` | `gestao-obragoito.vercel.app` | 3001 |
+| Portal de cliente | `apps/client` | `clients-obragoito.vercel.app` | 3002 |
+| Portal da equipa | `apps/worker` | `workers-obragoito.vercel.app` | 3003 |
+| Portal de desenvolvimento | `apps/dev` | `dev-obragoito.vercel.app` | 3004 |
+| API | `apps/api` | projeto próprio (ex.: `api-obragoito.vercel.app`) | 4000 |
 
 Cada aplicação tem o seu `vercel.json`. Na Vercel, crie **um projeto por pasta**
 e defina **Root Directory** para essa pasta. O `installCommand` e o
@@ -43,8 +43,9 @@ Obrigatórias:
 
 Recomendadas:
 
-- `PUBLIC_ORIGINS` — domínios dos quatro frontends, separados por vírgula
-  (necessário para cookies de sessão entre domínios).
+- `PUBLIC_ORIGINS` — só para acrescentar origens. Os cinco domínios da Vercel
+  (`obragoito`, `gestao-obragoito`, `workers-obragoito`, `clients-obragoito` e
+  `dev-obragoito`) já vêm incluídos por omissão na API.
 - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`,
   `SUPABASE_STORAGE_BUCKET` — armazenamento de documentos/fotografias.
 - `RESEND_API_KEY`, `EMAIL_FROM`, `QUOTE_NOTIFY_EMAIL` — envio de emails
@@ -52,12 +53,15 @@ Recomendadas:
 - `GEMINI_API_KEY`, `GEMINI_MODEL` — resumo automático dos relatórios.
 - `TRANSCRIPTION_PROVIDER=openai`, `OPENAI_API_KEY` — transcrição dos áudios.
 - `CRON_SECRET` — protege `/api/cron/daily`.
-- `COOKIE_SECURE=true`, `NODE_ENV=production`.
+- `COOKIE_SECURE=true`, `NODE_ENV=production`. Com `NODE_ENV=production` o
+  cookie de sessão passa a `SameSite=None; Secure` (`COOKIE_SAMESITE` para
+  forçar outro valor), necessário porque cada `*.vercel.app` é um site distinto.
 
 ### Frontends (`web`, `admin`, `client`, `worker`, `dev`)
 
-- `VITE_API_URL=https://api.obragoito.pt` — sem barra final. Sem esta variável
-  os pedidos vão para `/api` no próprio domínio.
+- `VITE_API_URL=https://api-obragoito.vercel.app` — domínio do projeto da API,
+  sem barra final. Sem esta variável os pedidos vão para `/api` no próprio
+  domínio. Defina-a nos cinco projetos: é o que liga cada portal à API.
 
 ## 3. Fecho diário automático
 

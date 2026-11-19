@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { MaintenanceGate } from "@obragoito/ui";
 import { SiteHeader } from "./components/SiteHeader";
 import { SiteFooter } from "./components/SiteFooter";
+import { CookieConsent } from "./components/CookieConsent";
 import { Home } from "./pages/Home";
 import { Servicos } from "./pages/Servicos";
 import { Projetos } from "./pages/Projetos";
@@ -42,6 +43,7 @@ export function App() {
         </Routes>
       </main>
       <SiteFooter />
+      <CookieConsent />
     </MaintenanceGate>
   );
 }

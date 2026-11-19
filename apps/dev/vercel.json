@@ -4,5 +4,6 @@
   "installCommand": "cd ../.. && npm ci",
   "buildCommand": "cd ../.. && npm run build --workspace @obragoito/dev",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }],
+  "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
 }

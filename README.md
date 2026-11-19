@@ -55,12 +55,12 @@ O comando imprime uma palavra-passe temporária **uma única vez**. Ao entrar, o
 alteração. A partir daí, todas as contas são criadas no portal de gestão, individualmente ou por
 importação CSV/XLSX.
 
-### Segundo fator por email (gestão e portal dev)
+### Início de sessão
 
-Depois da palavra-passe, a gestão e o portal dev pedem um código de 6 dígitos enviado por email
-(válido 10 minutos, uso único, 5 tentativas). O envio usa a Resend (`RESEND_API_KEY`); sem chave,
-fora de produção o código aparece no ecrã de login como «Código de teste» e em produção o acesso
-fica indisponível. Os portais de cliente e de equipa continuam a entrar só com palavra-passe.
+Todos os portais entram com email e palavra-passe, num único passo. O login está limitado a 12
+tentativas por 15 minutos, a sessão vive num cookie `httpOnly` (SameSite=None em produção, para os
+domínios separados da Vercel) e cada pedido valida a conta e o portal. As contas criadas por
+`create-admin` ou `seed-accounts` obrigam a definir uma nova palavra-passe no primeiro acesso.
 
 ## Desenvolvimento sem Docker
 

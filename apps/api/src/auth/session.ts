@@ -39,7 +39,7 @@ export async function createSession(userId: string, req: Request, res: Response)
 
   res.cookie(SESSION_COOKIE, token, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: env.cookieSameSite,
     secure: env.cookieSecure,
     path: "/",
     expires,
@@ -51,7 +51,12 @@ export async function destroySession(req: Request, res: Response): Promise<void>
   if (token) {
     await query("delete from public.sessions where token_hash = $1", [hashToken(token)]);
   }
-  res.clearCookie(SESSION_COOKIE, { path: "/", httpOnly: true, sameSite: "lax", secure: env.cookieSecure });
+  res.clearCookie(SESSION_COOKIE, {
+    path: "/",
+    httpOnly: true,
+    sameSite: env.cookieSameSite,
+    secure: env.cookieSecure,
+  });
 }
 
 function readCookie(req: Request): string | null {

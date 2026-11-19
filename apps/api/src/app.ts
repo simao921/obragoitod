@@ -14,6 +14,7 @@ import { workerRouter } from "./routes/worker.js";
 import { filesRouter } from "./routes/files.js";
 import { devRouter } from "./routes/dev.js";
 import { maintenanceState } from "./settings.js";
+import { mailProvider } from "./notify.js";
 import { runNightlyClose } from "./daily.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -96,7 +97,7 @@ export function createApp() {
       storageDriver: env.storageDriver,
       voiceAvailable: env.transcriptionAvailable,
       transcriptionProvider: env.transcriptionProvider || null,
-      emailConfigured: Boolean(env.resendApiKey),
+      emailConfigured: mailProvider() !== "none",
     });
   });
 

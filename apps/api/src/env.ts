@@ -17,10 +17,28 @@ export const env = {
   databaseUrl: process.env.DATABASE_URL ?? "",
   sessionSecret: process.env.SESSION_SECRET ?? "",
   cookieSecure: process.env.COOKIE_SECURE === "true" || process.env.NODE_ENV === "production",
+  /** Domínios separados na Vercel: SameSite=None (sempre com Secure) em produção. */
+  cookieSameSite: (
+    ["none", "lax", "strict"].includes(process.env.COOKIE_SAMESITE ?? "")
+      ? process.env.COOKIE_SAMESITE
+      : process.env.NODE_ENV === "production"
+        ? "none"
+        : "lax"
+  ) as "none" | "lax" | "strict",
   sessionHours: Number(process.env.SESSION_HOURS ?? 8),
 
-  /** Origens adicionais permitidas para pedidos com credenciais (produção multi-domínio). */
-  publicOrigins: list(process.env.PUBLIC_ORIGINS),
+  /**
+   * Origens permitidas para pedidos com credenciais. Os domínios de produção da
+   * Obragoito estão sempre incluídos; PUBLIC_ORIGINS acrescenta outros (dev).
+   */
+  publicOrigins: [
+    "https://obragoito.vercel.app",
+    "https://gestao-obragoito.vercel.app",
+    "https://workers-obragoito.vercel.app",
+    "https://clients-obragoito.vercel.app",
+    "https://dev-obragoito.vercel.app",
+    ...list(process.env.PUBLIC_ORIGINS),
+  ],
 
   supabaseUrl: process.env.SUPABASE_URL ?? "",
   supabaseAnonKey: process.env.SUPABASE_ANON_KEY ?? "",
