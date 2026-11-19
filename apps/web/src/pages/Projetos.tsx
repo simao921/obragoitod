@@ -46,7 +46,7 @@ export function Projetos() {
           <h1 className="page-hero__title">Obras que continuam a fazer parte da cidade.</h1>
           <p className="page-hero__lede">
             Uma seleção de projetos desenvolvidos nas diferentes áreas de atuação da Obragoito. O portefólio é
-            atualizado pela administração à medida que as obras são publicadas.
+            atualizado à medida que as obras são publicadas.
           </p>
         </div>
       </header>

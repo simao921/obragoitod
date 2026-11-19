@@ -46,7 +46,7 @@ export function SiteFooter() {
             <ul className="site-footer__list">
               {SERVICES.map((service) => (
                 <li key={service.slug}>
-                  <Link to={`/servicos#service-${service.slug}`}>{service.title}</Link>
+                  <Link to={`/servicos#${service.slug}`}>{service.title}</Link>
                 </li>
               ))}
             </ul>
@@ -73,16 +73,6 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div>
-            <p className="site-footer__col-title">Áreas de atuação</p>
-            <ul className="site-footer__list">
-              {SERVICES.map((service) => (
-                <li key={service.slug}>
-                  <Link to={`/servicos#${service.slug}`}>{service.title}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <div className="site-footer__legal">

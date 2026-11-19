@@ -234,8 +234,8 @@ export function Home() {
             <div className="empty">
               <p className="empty__title">Portefólio em atualização</p>
               <p className="empty__text">
-                As obras publicadas são adicionadas pela administração. Entretanto, fale connosco para
-                conhecer trabalhos realizados na sua área.
+                Estamos a publicar as obras realizadas. Entretanto, fale connosco para conhecer trabalhos
+                realizados na sua área.
               </p>
               <Link to="/contactos" className="btn btn--sm">
                 <span>Falar com a equipa</span>

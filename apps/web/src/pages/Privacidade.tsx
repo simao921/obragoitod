@@ -16,8 +16,8 @@ export function Privacidade() {
           <p className="eyebrow">Privacidade</p>
           <h1 className="page-hero__title">Política de privacidade.</h1>
           <p className="page-hero__lede">
-            Esta página descreve os dados recolhidos pelo formulário de pedido de orçamento e pelos portais
-            privados da Obragoito.
+            Esta página descreve os dados recolhidos através do formulário de pedido de orçamento e do contacto
+            com a Obragoito.
           </p>
         </div>
       </header>
@@ -54,7 +54,7 @@ export function Privacidade() {
             <h2 style={{ fontSize: "var(--text-xl)" }}>Conservação</h2>
             <p className="text-muted" style={{ marginTop: "var(--space-3)" }}>
               Os pedidos são conservados enquanto forem necessários para responder ao pedido e cumprir
-              obrigações legais aplicáveis. Pedidos sem seguimento devem ser eliminados pela administração.
+              obrigações legais aplicáveis. Pedidos sem seguimento são eliminados pela nossa equipa.
             </p>
           </div>
 
@@ -68,11 +68,10 @@ export function Privacidade() {
           </div>
 
           <div>
-            <h2 style={{ fontSize: "var(--text-xl)" }}>Portais privados</h2>
+            <h2 style={{ fontSize: "var(--text-xl)" }}>Segurança</h2>
             <p className="text-muted" style={{ marginTop: "var(--space-3)" }}>
-              O acesso às áreas de administração, clientes e trabalhadores é feito por contas criadas pela
-              administração. As palavras-passe são guardadas apenas em forma de hash e nunca em texto simples.
-              Cada utilizador acede somente às obras e às mensagens que lhe estão atribuídas.
+              O acesso aos dados é restrito e feito através de contas individuais criadas pela empresa. As
+              palavras-passe são guardadas apenas em forma de hash e nunca em texto simples.
             </p>
           </div>
 

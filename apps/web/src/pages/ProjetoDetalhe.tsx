@@ -131,7 +131,7 @@ export function ProjetoDetalhe() {
             {project.description ? (
               project.description.split("\n").map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
-              <p className="text-muted">Descrição detalhada a completar pela administração.</p>
+              <p className="text-muted">Descrição detalhada a completar brevemente.</p>
             )}
             <p style={{ fontSize: "var(--text-sm)", color: "var(--ink-muted)" }}>
               Fotografias e informação publicadas pela Obragoito. Para detalhes sobre esta intervenção,

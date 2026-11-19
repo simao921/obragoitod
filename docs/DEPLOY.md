@@ -9,7 +9,7 @@ O repositório é um monorepo com cinco aplicações e uma API:
 | Portal de cliente | `apps/client` | `clients-obragoito.vercel.app` | 3002 |
 | Portal da equipa | `apps/worker` | `workers-obragoito.vercel.app` | 3003 |
 | Portal de desenvolvimento | `apps/dev` | `dev-obragoito.vercel.app` | 3004 |
-| API | `apps/api` | projeto próprio (ex.: `api-obragoito.vercel.app`) | 4000 |
+| API | `apps/api` | `api-obragoito.vercel.app` | 4000 |
 
 Cada aplicação tem o seu `vercel.json`. Na Vercel, crie **um projeto por pasta**
 e defina **Root Directory** para essa pasta. O `installCommand` e o

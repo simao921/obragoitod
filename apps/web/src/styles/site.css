@@ -147,6 +147,7 @@
 }
 
 .mobile-menu a {
+  display: block;
   padding: var(--space-3) 0;
   border-bottom: 1px solid rgba(251, 250, 247, 0.14);
   font-family: var(--font-display);
@@ -1312,4 +1313,36 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+}
+
+/* ---------------- Ajustes de telemóvel ---------------- */
+@media (max-width: 640px) {
+  /* alvos de toque confortáveis */
+  .site-header__burger {
+    min-height: 44px;
+  }
+
+  .site-footer__list {
+    gap: 2px;
+  }
+
+  .site-footer__list a {
+    display: inline-block;
+    padding-block: 6px;
+  }
+
+  .site-footer__legal a,
+  .site-footer__cookies {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+  }
+
+  /* o menu tem de rolar em ecrãs baixos */
+  .mobile-menu {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    justify-content: flex-start;
+    padding-top: calc(var(--header-h) + var(--space-5));
+  }
 }
