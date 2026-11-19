@@ -1,0 +1,47 @@
+/* Movimento editorial: entradas suaves e parallax discreto */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 900ms var(--ease),
+    transform 900ms var(--ease);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-line {
+  overflow: hidden;
+}
+
+.reveal-line > span {
+  display: block;
+  transform: translateY(102%);
+  transition: transform 1000ms var(--ease);
+}
+
+.reveal-line.is-visible > span {
+  transform: none;
+}
+
+.parallax {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-line > span {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .parallax {
+    transform: none !important;
+    will-change: auto;
+  }
+}

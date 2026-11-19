@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "cd ../.. && npm ci",
+  "buildCommand": "cd ../.. && npm run build --workspace @obragoito/worker && cp -r apps/api/public/media apps/worker/dist/media",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }],
+  "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+}

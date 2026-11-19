@@ -1,0 +1,69 @@
+/*
+ * Obragoito — Design tokens
+ * "The Precision of Matter": pedra, carvão, terracota.
+ * Paleta validada para contraste AA/AAA sobre pedra.
+ */
+
+:root {
+  /* Cor */
+  --stone: #f5f2ee;
+  --stone-deep: #ebe6df;
+  --white-warm: #fbfaf7;
+  --charcoal: #1a1a1b;
+  --charcoal-soft: #2b2b2d;
+  --charcoal-muted: #3d3d40;
+  --slate: #e2e2df;
+  --slate-deep: #d3d2ce;
+  --terracotta: #b35c44;
+  --terracotta-deep: #8f4531;
+  --terracotta-wash: #f0e2dc;
+  --ink-muted: #5c5a57;
+  --success: #3f6b4f;
+  --warning: #8a6320;
+  --danger: #9a3b2c;
+
+  /* Tipografia */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1.0625rem;
+  --text-lg: clamp(1.125rem, 0.4vw + 1.05rem, 1.25rem);
+  --text-xl: clamp(1.375rem, 0.8vw + 1.2rem, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.8vw + 1.3rem, 2.5rem);
+  --text-3xl: clamp(2.25rem, 3.2vw + 1.4rem, 3.75rem);
+  --display: clamp(2.75rem, 7.2vw, 7rem);
+  --display-xl: clamp(3.25rem, 9vw, 9rem);
+
+  /* Ritmo */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+  --section: clamp(4.5rem, 9vw, 9.5rem);
+
+  /* Estrutura */
+  --container: 1440px;
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --line: 1px solid var(--slate);
+  --line-strong: 1px solid var(--slate-deep);
+  --radius: 2px;
+  --header-h: 76px;
+
+  /* Movimento */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur: 480ms;
+
+  /* Elevação discreta */
+  --shadow-sm: 0 1px 2px rgba(26, 26, 27, 0.04);
+  --shadow-md: 0 18px 40px -24px rgba(26, 26, 27, 0.35);
+
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
