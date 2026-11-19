@@ -133,6 +133,36 @@ const REAL_PROJECTS: SeedProject[] = [
       },
     ],
   },
+  {
+    name: "Parque Escutista da Mata do Paraíso",
+    category: "obras-publicas",
+    location: "Vialonga, Vila Franca de Xira",
+    summary:
+      "Parque escutista na Mata do Paraíso, em Vialonga, com mais de 26 mil m² de área de intervenção e três prémios internacionais de arquitetura.",
+    description:
+      "Construção do Parque Escutista da Mata do Paraíso, em Vialonga, num terreno florestal com mais de 26 mil metros quadrados de área de intervenção. A empreitada foi adjudicada à Obragoito, com um investimento de 690.881,31 € financiado pelo Plano de Recuperação e Resiliência (PRR), e o equipamento foi inaugurado a 10 de outubro de 2026.\nO projeto do gabinete Plano Humano Arquitectos concentra três edifícios — dois balneários e uma zona de lavagens — num declive mais suave, deixando a maior parte do terreno livre para as atividades de acampamento. Um anfiteatro exterior aproveita o desnível natural e as vistas da paisagem, e o parque inclui ainda três cozinhas de campo e acessos adaptados a pessoas com mobilidade reduzida. A contenção de custos e a responsabilidade ambiental orientaram a construção, compatibilizando a obra com a preservação da Mata do Paraíso.\nAntes da abertura, o projeto foi distinguido com três prémios internacionais: Wonder Global Design Awards 2026, na categoria Cultural / Community Architecture, e LOOP Design Awards 2026, onde conquistou o People's Choice Award e venceu a categoria Architecture, Small Architecture. A gestão do espaço foi entregue a oito grupos e agrupamentos de escuteiros e escoteiros do concelho de Vila Franca de Xira.\nFotografias: João Morgado.",
+    cover: "/media/projects/parque-escutista-vialonga-1.webp",
+    alt: "Edifícios de apoio do Parque Escutista da Mata do Paraíso, em Vialonga",
+    order: 8,
+    gallery: [
+      {
+        path: "/media/projects/parque-escutista-vialonga-1.webp",
+        alt: "Edifícios de apoio do Parque Escutista da Mata do Paraíso, em Vialonga",
+      },
+      {
+        path: "/media/projects/parque-escutista-vialonga-2.webp",
+        alt: "Parque Escutista da Mata do Paraíso, em Vialonga, entre a vegetação da mata",
+      },
+      {
+        path: "/media/projects/parque-escutista-vialonga-3.webp",
+        alt: "Zona de acampamento do Parque Escutista da Mata do Paraíso, em Vialonga",
+      },
+      {
+        path: "/media/projects/parque-escutista-vialonga-4.webp",
+        alt: "Estruturas e envolvente do Parque Escutista da Mata do Paraíso, em Vialonga",
+      },
+    ],
+  },
 ];
 
 async function main() {
