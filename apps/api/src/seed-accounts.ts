@@ -32,7 +32,7 @@ const ACCOUNTS = [
   {
     email: "simaodev@obragoito.pt",
     name: "Simão Dev",
-    password: "Respeito12!",
+    password: "123456",
     developer: true,
   },
 ] as const;
