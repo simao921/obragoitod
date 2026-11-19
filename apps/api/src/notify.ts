@@ -1,3 +1,4 @@
+import nodemailer, { type Transporter } from "nodemailer";
 import { env } from "./env.js";
 
 type EmailInput = {
@@ -8,12 +9,58 @@ type EmailInput = {
   attachments?: { filename: string; content: string }[];
 };
 
+/** Fornecedor em uso: caixa de correio SMTP normal, Resend, ou nenhum. */
+export function mailProvider(): "smtp" | "resend" | "none" {
+  if (env.smtpUrl || env.smtpHost) return "smtp";
+  if (env.resendApiKey) return "resend";
+  return "none";
+}
+
+let smtp: Transporter | null = null;
+
+function smtpTransport(): Transporter {
+  if (!smtp) {
+    smtp = nodemailer.createTransport(
+      env.smtpUrl
+        ? env.smtpUrl
+        : {
+            host: env.smtpHost,
+            port: env.smtpPort,
+            secure: env.smtpSecure || env.smtpPort === 465,
+            auth: env.smtpUser ? { user: env.smtpUser, pass: env.smtpPass } : undefined,
+          },
+    );
+  }
+  return smtp;
+}
+
 /**
- * Envio de email opcional. Sem RESEND_API_KEY configurada, devolve false —
- * o pedido continua registado na base de dados e visível no portal de gestão.
+ * Envio de email. Usa o SMTP de uma caixa de correio normal quando configurado
+ * (SMTP_HOST/SMTP_USER/SMTP_PASS ou SMTP_URL); senão RESEND_API_KEY. Sem nenhum
+ * dos dois devolve false — o pedido continua registado na base de dados e
+ * visível no portal de gestão.
  */
 export async function sendEmail({ to, subject, html, replyTo, attachments }: EmailInput): Promise<boolean> {
-  if (!env.resendApiKey) return false;
+  const provider = mailProvider();
+  if (provider === "none") return false;
+
+  if (provider === "smtp") {
+    try {
+      await smtpTransport().sendMail({
+        from: `Obragoito <${env.emailFrom}>`,
+        to,
+        subject,
+        html,
+        ...(replyTo ? { replyTo } : {}),
+        ...(attachments && attachments.length > 0 ? { attachments } : {}),
+      });
+      return true;
+    } catch (error) {
+      console.error("[email] falha SMTP:", error instanceof Error ? error.message : error);
+      return false;
+    }
+  }
+
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",

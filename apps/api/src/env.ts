@@ -42,6 +42,14 @@ export const env = {
   quoteNotifyEmail: process.env.QUOTE_NOTIFY_EMAIL ?? "obragoito@obragoito.pt",
   emailFrom: process.env.EMAIL_FROM ?? "website@obragoito.pt",
 
+  /** SMTP: permite enviar a partir de uma caixa de correio normal (sem fornecedor próprio). */
+  smtpUrl: process.env.SMTP_URL ?? "",
+  smtpHost: process.env.SMTP_HOST ?? "",
+  smtpPort: Number(process.env.SMTP_PORT ?? 587),
+  smtpSecure: process.env.SMTP_SECURE === "true",
+  smtpUser: process.env.SMTP_USER ?? "",
+  smtpPass: process.env.SMTP_PASS ?? "",
+
   /** Endereço público do site institucional (usado nos emails e no portal dev). */
   publicSiteUrl: process.env.PUBLIC_SITE_URL ?? "https://obragoito.pt",
 
