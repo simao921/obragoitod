@@ -5,5 +5,10 @@
   "buildCommand": "cd ../.. && npm run build --workspace @obragoito/worker && cp -r apps/api/public/media apps/worker/dist/media",
   "outputDirectory": "dist",
   "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }],
-  "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
+  ]
 }

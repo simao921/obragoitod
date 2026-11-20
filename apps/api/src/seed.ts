@@ -1,5 +1,5 @@
 import { pool, query } from "./db.js";
-import { slugify } from "@obragoito/core";
+import { slugify } from "./core.js";
 
 /**
  * Conteúdo real confirmado no site institucional da Obragoito (obragoito.pt).

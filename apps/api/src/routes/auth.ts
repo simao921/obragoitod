@@ -1,7 +1,7 @@
 import { Router, type Request, type Response } from "express";
 import { rateLimit } from "express-rate-limit";
 import { z } from "zod";
-import { firstError, loginSchema, type Role } from "@obragoito/core";
+import { firstError, loginSchema, type Role } from "../core.js";
 import { one, query } from "../db.js";
 import { env } from "../env.js";
 import { hashPassword, verifyPassword } from "../auth/passwords.js";

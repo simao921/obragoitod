@@ -8,7 +8,7 @@ import {
   projectUpdateSchema,
   slugify,
   updateUserSchema,
-} from "@obragoito/core";
+} from "../core.js";
 import { many, one, query } from "../db.js";
 import { env } from "../env.js";
 import { recordAudit } from "../audit.js";
