@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import { z } from "zod";
-import { firstError, workerReportSchema } from "@obragoito/core";
+import { firstError, workerReportSchema } from "../core.js";
 import { many, one } from "../db.js";
 import { humanDate, lisbonDate } from "../daily.js";
 import { env } from "../env.js";

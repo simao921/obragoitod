@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createHash } from "node:crypto";
 import { rateLimit } from "express-rate-limit";
-import { quoteRequestSchema, firstError, SERVICE_CATEGORIES } from "@obragoito/core";
+import { quoteRequestSchema, firstError, SERVICE_CATEGORIES } from "../core.js";
 import { many, one } from "../db.js";
 import { recordAudit } from "../audit.js";
 import { quoteNotificationHtml, sendEmail } from "../notify.js";

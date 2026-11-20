@@ -6,7 +6,7 @@ import type {
   ProjectUpdate,
   QuoteRequest,
   WorkerReport,
-} from "@obragoito/core";
+} from "./core.js";
 
 export type ProjectRow = {
   id: string;

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { messageSchema, firstError, threadSchema, memberThreadSchema } from "@obragoito/core";
+import { messageSchema, firstError, threadSchema, memberThreadSchema } from "../core.js";
 import { many, one, query, transaction } from "../db.js";
 import { recordAudit } from "../audit.js";
 
